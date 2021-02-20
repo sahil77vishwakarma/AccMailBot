@@ -1,19 +1,19 @@
 package com.example.accmailbot;
 
-import android.provider.BaseColumns;
 import android.util.Base64;
+import com.example.accmailbot.UserDetails;
 
-import java.net.URL;
-
-public class enSchema {
-    public enSchema(String Email,String Subject,String Body){email=Email;subject=Subject;body=Body;}
+public class encryptRawData {
 
     public static String email ="";
     public static String subject="";
     public static String body="";
 
 
-    public byte[] getStruct(){
+    public static void encryptData(String Email, String Subject, String Body){
+        email=Email;
+        subject=Subject;
+        body=Body;
          String Content_struct="Content-Type: text/html; charset=\"UTF-8\"\n" +
                 "MIME-Version: 1.0\n" +
                 "Content-Transfer-Encoding: 7bit\n" +
@@ -22,7 +22,8 @@ public class enSchema {
                 "\n" +
                 body+"";
 
-         byte[]  result=Content_struct.getBytes();
-         return result;
+        byte[] msg=Content_struct.getBytes();
+        String en=Base64.encodeToString(msg,Base64.CRLF);
+        UserDetails.raw_data=en;
     }
 }
